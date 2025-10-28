@@ -1,7 +1,7 @@
 ## Exemplos das Funções do Pandas
 ### 1. Criação de Dados
 DataFrame
-```
+```python
 # Criar DataFrame simples
 pd.DataFrame({'Yes': [50, 21], 'No': [131, 2]})
 
@@ -19,7 +19,7 @@ pd.DataFrame({
 ```
 Series
 
-```
+```python
 # Series simples
 pd.Series([1, 2, 3, 4, 5])
 
@@ -32,7 +32,7 @@ pd.Series([30, 35, 40],
 
 ### 2. Leitura de Arquivos
 
-```
+```python
 # Ler CSV
 wine_reviews = pd.read_csv("../input/wine-reviews/winemag-data-130k-v2.csv")
 
@@ -51,7 +51,7 @@ wine_reviews.head()
 
 ### 3. Indexação e Seleção
 **Acessores Nativos**
-```
+```python
 # Por atributo
 reviews.country
 
@@ -62,7 +62,7 @@ reviews['country']
 reviews['country'][0]  # 'Italy'
 ```
 **iloc (posicional)**
-```
+```python
 # Primeira linha
 reviews.iloc[0]
 
@@ -83,7 +83,7 @@ reviews.iloc[-5:]
 ```
 **loc (por rótulos)**
 
-```
+```python
 # Valor específico
 reviews.loc[0, 'country']  # 'Italy'
 
@@ -99,7 +99,7 @@ reviews.set_index("title")
 ```
 **Seleção Condicional**
 
-```
+```python
 # Condição simples
 reviews.country == 'Italy'
 
@@ -123,7 +123,7 @@ reviews[pd.isnull(reviews.country)]
 ```
 **Atribuição**
 
-```
+```python
 # Valor constante
 reviews['critic'] = 'everyone'
 
@@ -133,7 +133,7 @@ reviews['index_backwards'] = range(len(reviews), 0, -1)
 ---
 ### 4. Funções Resumo
 
-```
+```python
 # Estatísticas descritivas
 reviews.points.describe()
 # Saída:
@@ -172,7 +172,7 @@ reviews.taster_name.value_counts()
 ### 5. Map e Apply
 **map()**
 
-```
+```python
 # Subtrair a média
 review_points_mean = reviews.points.mean()
 reviews.points.map(lambda p: p - review_points_mean)
@@ -184,7 +184,7 @@ reviews.points.map(lambda p: p - review_points_mean)
 **apply()**
 
 
-```
+```python
 # Aplicar função em linhas
 def remean_points(row):
     row.points = row.points - review_points_mean
@@ -195,7 +195,7 @@ reviews.apply(remean_points, axis='columns')
 
 **Operadores Vetorizados**
 
-```
+```python
 # Subtração
 reviews.points - review_points_mean
 
@@ -211,7 +211,7 @@ reviews.country + " - " + reviews.region_1
 **Agrupamento Básico**
 
 
-```
+```python
 # Contar por grupo
 reviews.groupby('points').points.count()
 # points
@@ -229,7 +229,7 @@ reviews.groupby('points').price.min()
 
 **Apply em Grupos**
 
-```
+```python
 # Primeiro vinho de cada vinícola
 reviews.groupby('winery').apply(lambda df: df.title.iloc[0])
 # winery
@@ -240,7 +240,7 @@ reviews.groupby('winery').apply(lambda df: df.title.iloc[0])
 
 **Agrupamento Múltiplo**
 
-```
+```python
 # Melhor vinho por país e província
 reviews.groupby(['country', 'province']).apply(lambda df: df.loc[df.points.idxmax()])
 ```
@@ -249,7 +249,7 @@ reviews.groupby(['country', 'province']).apply(lambda df: df.loc[df.points.idxma
 **Agregações Múltiplas**
 
 
-```
+```python
 # Várias estatísticas de uma vez
 reviews.groupby(['country']).price.agg([len, min, max])
 #             len   min    max
@@ -263,7 +263,7 @@ reviews.groupby(['country']).price.agg([len, min, max])
 
 ### 7. MultiIndex
 
-```
+```python
 # Criar MultiIndex
 countries_reviewed = reviews.groupby(['country', 'province']).description.agg([len])
 
@@ -276,7 +276,7 @@ countries_reviewed.reset_index()
 ```
 ---
 ### 8. Ordenação
-```
+```python
 # Ordenar por valores (ascendente)
 countries_reviewed.sort_values(by='len')
 
@@ -299,7 +299,7 @@ countries_reviewed.sort_values(by=['country', 'len'])
 
 ### 9. Tipos de Dados
 
-```
+```python
 # Tipo de uma coluna
 reviews.price.dtype  # dtype('float64')
 
@@ -325,7 +325,7 @@ reviews.points.astype('float64')
 
 ### 10. Valores Ausentes
 
-```
+```python
 # Detectar valores nulos
 pd.isnull(reviews.country)
 
@@ -347,7 +347,7 @@ reviews.taster_twitter_handle.replace("@kerinokeefe", "@kerino")
 ---
 
 ### 11. Renomeação
-```
+```python
 # Renomear colunas
 reviews.rename(columns={'points': 'score'})
 
@@ -363,7 +363,8 @@ reviews.rename_axis("wines", axis='rows').rename_axis("fields", axis='columns')
 ### 12. Combinação de DataFrames
 **concat()**
 
-```# Concatenar DataFrames verticalmente
+```python
+# Concatenar DataFrames verticalmente
 canadian_youtube = pd.read_csv("../input/youtube-new/CAvideos.csv")
 british_youtube = pd.read_csv("../input/youtube-new/GBvideos.csv")
 
@@ -372,7 +373,7 @@ pd.concat([canadian_youtube, british_youtube])
 ```
 
 **join()**
-```
+```python
 # Preparar índices
 left = canadian_youtube.set_index(['title', 'trending_date'])
 right = british_youtube.set_index(['title', 'trending_date'])
@@ -386,7 +387,7 @@ left.join(right, lsuffix='_CAN', rsuffix='_UK')
 ### Resumo de Operações Comuns
 
 
-```
+```python
 # Exploração inicial
 df.shape
 df.head()
