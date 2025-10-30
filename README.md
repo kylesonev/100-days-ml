@@ -4,4 +4,5 @@ I'm doing this 100 days Machine Learning so I can improve my skills and becoming
 
 ### Retomada
 
-- 28/10 - Kaggle Learn (Intro Machine Learning)
+- 28/10 - Kaggle Learn (Intro Machine Learning - Pandas)
+- 30/10 - Kaggle Learn (Intermediate Machine Learning)
