@@ -4,16 +4,16 @@ from sklearn import tree
 import pandas as pd
 
 df = pd.read_excel("data/dados_frutas.xlsx")
-df
+print(df)
 
 # %%
 
 arvore = tree.DecisionTreeClassifier(random_state=42)
 
 # %%
-y = df['Fruta']
+y = df["Fruta"]
 
-caracteristicas = ['Arredondada', 'Suculenta', 'Vermelha', 'Doce']
+caracteristicas = ["Arredondada", "Suculenta", "Vermelha", "Doce"]
 X = df[caracteristicas]
 
 # %%
@@ -25,12 +25,14 @@ arvore.predict([[1, 1, 1, 1]])
 # %%
 arvore.predict([[0, 1, 0, 0]])
 
+
 # %%
+
+plt.ion()
 plt.figure(dpi=400)
-tree.plot_tree(arvore,
-               feature_names=caracteristicas,
-               class_names=arvore.classes_,
-               filled=True)
+tree.plot_tree(
+    arvore, feature_names=caracteristicas, class_names=arvore.classes_, filled=True
+)
 
 # %%
 proba = arvore.predict_proba([[1, 0, 1, 1]])[0]
